@@ -1,0 +1,8 @@
+Things to do:
+1. Setup index.html
+2. Setup header template
+3. Download htmx and put it in the static directory
+4. Include it in the header
+5. Render index.html with htmx using Go Templ and whatever router I find appropriate.
+6. Setup packages used in the project.
+...
