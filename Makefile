@@ -1,6 +1,7 @@
 GO=go
 GOFLAGS=-mod=vendor
 COV_PROFILE=coverage.txt
+MODULES=server,cmd
 
 export CGO_ENABLED=0
 
@@ -15,7 +16,7 @@ vet: fmt
 	@$(GO) vet ./...
 
 lint: vet
-	@golint -set_exit_status=1 ./{server,cmd}/...
+	@golint -set_exit_status=1 ./{$(MODULES)}/...
 
 test: lint
 	@$(GO) clean -testcache
