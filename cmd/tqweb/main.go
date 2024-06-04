@@ -8,5 +8,5 @@ import (
 
 func main() {
 	s := server.Server()
-	log.Fatal(s.Start(":8000"))
+	log.Fatal(s.Start("localhost:8000"))
 }
