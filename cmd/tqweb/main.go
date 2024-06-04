@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/mdm-code/tqweb/server"
+)
 
 func main() {
-	fmt.Println("Hello, world!")
+	s := server.Server()
+	log.Fatal(s.Start(":8000"))
 }
