@@ -7,7 +7,7 @@ export CGO_ENABLED=0
 
 .DEFAULT_GOAL := build
 
-.PHONY: fmt vet lint test install build cover clean
+.PHONY: fmt vet lint test install build cover clean serve
 
 fmt:
 	@$(GO) fmt ./...
@@ -37,3 +37,7 @@ clean:
 	@$(GO) mod tidy
 	@$(GO) clean -testcache
 	@rm -f $(COV_PROFILE)
+
+serve:
+	@$(GO) build -C ./cmd/tqweb -trimpath -o tqweb
+	@./cmd/tqweb/tqweb
