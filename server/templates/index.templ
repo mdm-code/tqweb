@@ -1,0 +1,32 @@
+package templates
+
+import (
+	"strconv"
+)
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+templ Index() {
+	<!DOCTYPE html>
+	<html lang="en" data-theme="dark">
+		<head>
+			<script src="/js/htmx.js"></script>
+		</head>
+		<body>
+			<title>Hello, world!</title>
+			<button hx-get="/data" hx-target="body">
+				Get data
+			</button>
+		</body>
+	</html>
+}
+
+templ Data(p Person) {
+	<tr>
+	  <td>{p.Name}</td>
+	  <td>{strconv.Itoa(p.Age)}</td>
+	</tr>
+}
