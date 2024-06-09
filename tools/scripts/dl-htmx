@@ -1,0 +1,12 @@
+#!/bin/bash
+
+CMDS="wget"
+URL="https://unpkg.com/htmx.org/dist/htmx.min.js"
+TARGET_FILE="htmx.min.js"
+STATIC_JS_DIR="./static/js"
+
+for cmd in $CMDS
+	do command -v "$cmd" || ( echo "command $cmd not found" && exit 1 )
+done
+
+wget "$URL" -O "$STATIC_JS_DIR/$TARGET_FILE"
