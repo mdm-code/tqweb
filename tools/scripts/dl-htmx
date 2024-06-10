@@ -1,4 +1,5 @@
 #!/bin/bash
+# Update htmx js library in the static/js catalog.
 
 CMDS="wget"
 URL="https://unpkg.com/htmx.org/dist/htmx.min.js"
