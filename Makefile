@@ -7,7 +7,7 @@ export CGO_ENABLED=0
 
 .DEFAULT_GOAL := build
 
-.PHONY: fmt vet lint test install build cover clean serve
+.PHONY: fmt vet lint test install build cover clean serve update-js
 
 fmt:
 	@$(GO) fmt ./...
@@ -25,7 +25,7 @@ test: lint
 install: test
 	@$(GO) install ./...
 
-build: test
+build: test update-js
 	@$(GO) build $(GOFLAGS) github.com/mdm-code/tqweb/...
 
 cover:
@@ -37,6 +37,9 @@ clean:
 	@$(GO) mod tidy
 	@$(GO) clean -testcache
 	@rm -f $(COV_PROFILE)
+
+update-js:
+	@./tools/scripts/dl-htmx
 
 serve:
 	@$(GO) build -C ./cmd/tqweb -trimpath -o tqweb
