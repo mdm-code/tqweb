@@ -7,7 +7,7 @@ TARGET_FILE="htmx.min.js"
 STATIC_JS_DIR="./static/js"
 
 for cmd in $CMDS; do
-	command -v "$cmd" || { echo "command $cmd not found" && exit 1; }
+	command -v "$cmd" > /dev/null || { echo "command $cmd not found" && exit 1; }
 done
 
 wget "$URL" -O "$STATIC_JS_DIR/$TARGET_FILE"
