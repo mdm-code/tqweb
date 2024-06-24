@@ -1,0 +1,23 @@
+package template
+
+templ Page() {
+	<!DOCTYPE html>
+	<html lang="en" data-theme="dark">
+		<head>
+			<meta charset="utf-8">
+			<script src="/js/htmx.min.js"></script>
+			<link rel="stylesheet" href="/css/site.css">
+		</head>
+		@Body()
+	</html>
+}
+
+templ Body() {
+	<body hx-boost="true">
+		@NavBar()
+		<div id="data-div">Here comes the data...</div>
+		<button hx-get="/data" hx-target="#data-div">
+			<b>Grab some data!</b>
+		</button>
+	</body>
+}
