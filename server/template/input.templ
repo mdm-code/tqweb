@@ -1,0 +1,15 @@
+package template
+
+templ TomlInput(value string) {
+	<div class="container center" id="toml-response-div">
+		<b>TOML data:</b>
+		<button
+			hx-post="/toml"
+			hx-include="[name='tomlData']"
+			hx-swap="outerHTML"
+			hx-target="#toml-response-div"
+		>Submit</button>
+		<br>
+		<input type="text" value={ value } name="tomlData" id="tomlData">
+	</div>
+}
