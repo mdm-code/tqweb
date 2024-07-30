@@ -1,6 +1,6 @@
 package template
 
-templ TomlInput(value string) {
+templ TomlInput(value, err string) {
 	<div class="container center" id="toml-response-div">
 		<b>TOML data:</b>
 		<button
@@ -10,6 +10,21 @@ templ TomlInput(value string) {
 			hx-target="#toml-response-div"
 		>Submit</button>
 		<br>
-		<input type="text" value={ value } name="tomlData" id="tomlData">
+		if err != "" {
+			<div>
+				{ err }
+			</div>
+		} else {
+			<div>
+				ok
+			</div>
+		}
+		<textarea
+			type="text"
+			cols="40"
+			rows="10"
+			name="tomlData"
+			id="tomlData"
+		>{ value }</textarea>
 	</div>
 }

@@ -28,7 +28,7 @@ func Index(c echo.Context) error {
 
 // CheckTOML verifies if the TOML data is syntactically correct.
 func CheckTOML(c echo.Context) error {
-	gt := toml.NewAdapter(
+	tomlAdapter := toml.NewAdapter(
 		toml.NewGoTOML(
 			toml.GoTOMLConf{},
 		),
@@ -36,10 +36,11 @@ func CheckTOML(c echo.Context) error {
 	var tomlData any
 	value := c.FormValue("tomlData")
 	data := strings.NewReader(value)
-	err := gt.Unmarshal(data, &tomlData)
+	err := tomlAdapter.Unmarshal(data, &tomlData)
+	errMsg := ""
 	if err != nil {
-		return err
+		errMsg = err.Error()
 	}
-	t := template.TomlInput(value)
+	t := template.TomlInput(value, errMsg)
 	return t.Render(c.Request().Context(), c.Response().Writer)
 }
