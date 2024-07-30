@@ -1,6 +1,8 @@
 :root {
   --navBarBackgroundColor: #4d94ff;
   --bodyBackground: white;
+  --errorColor: red;
+  --okColor: green;
 }
 
 body {
@@ -43,4 +45,12 @@ body {
   color: white;
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.input-error {
+  color: var(--errorColor)
+}
+
+.input-ok {
+  color: var(--okColor)
 }

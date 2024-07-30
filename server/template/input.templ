@@ -11,11 +11,11 @@ templ TomlInput(value, err string) {
 		>Submit</button>
 		<br>
 		if err != "" {
-			<div>
+			<div class="input-error">
 				{ err }
 			</div>
 		} else {
-			<div>
+			<div class="input-ok">
 				ok
 			</div>
 		}
