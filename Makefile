@@ -7,9 +7,9 @@ export CGO_ENABLED=0
 
 .DEFAULT_GOAL := build
 
-.PHONY: fmt vet lint test install build cover clean serve update-js
+.PHONY: fmt vet lint test install build cover clean serve update-js gen-templ
 
-fmt:
+fmt: gen-templ
 	@$(GO) fmt ./...
 
 vet: fmt
@@ -40,6 +40,9 @@ clean:
 
 update-js:
 	@./tools/scripts/dl-htmx
+
+gen-templ:
+	@templ generate
 
 serve:
 	@$(GO) build -C ./cmd/tqweb -trimpath -o tqweb

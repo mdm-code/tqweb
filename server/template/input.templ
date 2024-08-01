@@ -1,0 +1,56 @@
+package template
+
+type OutlineType int
+
+const (
+	Default OutlineType = iota
+	Error
+	Correct
+)
+
+var Outline = map[OutlineType]string{
+	Correct: "correct",
+	Error: "error",
+	Default: "default",
+}
+
+templ TomlInput(query, value, output, err string, outline OutlineType) {
+	<div class="container center" id="toml-response-div">
+		<form
+			hx-post="/toml"
+			hx-include="[name='tomlData'], [name='tqQuery']"
+			hx-swap="outerHTML"
+			hx-target="#toml-response-div"
+		>
+		<br>
+		<label for="tqQuery">Query</label>
+		<br>
+		<textarea
+			cols="40"
+			rows="1"
+			name="tqQuery"
+			id="tqQuery"
+			required
+		>{ query }</textarea>
+		<br>
+		if err != "" {
+			<div class="error">{ err }</div>
+			<br>
+		}
+		<br>
+		<label for="tomlData">TOML data</label>
+		<br>
+		<textarea
+			class={ Outline[outline]  }
+			cols="40"
+			rows="10"
+			name="tomlData"
+			id="tomlData"
+			required
+		>{ value }</textarea>
+		<br>
+		<input type="submit">
+		</form>
+		<div>{ output }</div>
+	</div>
+}

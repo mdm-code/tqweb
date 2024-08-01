@@ -1,12 +1,18 @@
-# github.com/a-h/templ v0.2.707
+# github.com/a-h/templ v0.2.747
 ## explicit; go 1.21
 github.com/a-h/templ
+github.com/a-h/templ/runtime
 github.com/a-h/templ/safehtml
+# github.com/golang-jwt/jwt v3.2.2+incompatible
+## explicit
+github.com/golang-jwt/jwt
 # github.com/labstack/echo/v4 v4.12.0
 ## explicit; go 1.18
 github.com/labstack/echo/v4
+github.com/labstack/echo/v4/middleware
 # github.com/labstack/gommon v0.4.2
 ## explicit; go 1.18
+github.com/labstack/gommon/bytes
 github.com/labstack/gommon/color
 github.com/labstack/gommon/log
 # github.com/mattn/go-colorable v0.1.13
@@ -15,6 +21,24 @@ github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.20
 ## explicit; go 1.15
 github.com/mattn/go-isatty
+# github.com/mdm-code/scanner v1.2.1
+## explicit; go 1.21
+github.com/mdm-code/scanner
+# github.com/mdm-code/tq v1.2.0
+## explicit; go 1.22
+github.com/mdm-code/tq/internal/ast
+github.com/mdm-code/tq/internal/interpreter
+github.com/mdm-code/tq/internal/lexer
+github.com/mdm-code/tq/internal/parser
+github.com/mdm-code/tq/toml
+github.com/mdm-code/tq/tq
+# github.com/pelletier/go-toml/v2 v2.1.0
+## explicit; go 1.16
+github.com/pelletier/go-toml/v2
+github.com/pelletier/go-toml/v2/internal/characters
+github.com/pelletier/go-toml/v2/internal/danger
+github.com/pelletier/go-toml/v2/internal/tracker
+github.com/pelletier/go-toml/v2/unstable
 # github.com/valyala/bytebufferpool v1.0.0
 ## explicit
 github.com/valyala/bytebufferpool
@@ -32,7 +56,7 @@ golang.org/x/net/http2
 golang.org/x/net/http2/h2c
 golang.org/x/net/http2/hpack
 golang.org/x/net/idna
-# golang.org/x/sys v0.19.0
+# golang.org/x/sys v0.21.0
 ## explicit; go 1.18
 golang.org/x/sys/unix
 # golang.org/x/text v0.14.0
@@ -41,3 +65,6 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
+# golang.org/x/time v0.5.0
+## explicit; go 1.18
+golang.org/x/time/rate
