@@ -47,10 +47,18 @@ body {
   font-weight: bold;
 }
 
-.input-error {
+.error {
   color: var(--errorColor)
 }
 
-.input-ok {
-  color: var(--okColor)
+textarea.correct {
+  outline: 3px solid #006400;
+  box-shadow: 0 0 10px #006400;
 }
+
+textarea.error {
+  outline: 3px solid #8B0000;
+  box-shadow: 0 0 10px #8B0000;
+}
+
+textarea.default {}

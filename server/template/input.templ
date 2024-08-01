@@ -1,6 +1,20 @@
 package template
 
-templ TomlInput(value, err string) {
+type OutlineType int
+
+const (
+	Default OutlineType = iota
+	Error
+	Correct
+)
+
+var Outline = map[OutlineType]string{
+	Correct: "correct",
+	Error: "error",
+	Default: "default",
+}
+
+templ TomlInput(value, err string, outline OutlineType) {
 	<div class="container center" id="toml-response-div">
 		<b>TOML data:</b>
 		<button
@@ -11,15 +25,10 @@ templ TomlInput(value, err string) {
 		>Submit</button>
 		<br>
 		if err != "" {
-			<div class="input-error">
-				{ err }
-			</div>
-		} else {
-			<div class="input-ok">
-				ok
-			</div>
+			<div class="error">{ err }</div>
 		}
 		<textarea
+			class={ Outline[outline]  }
 			type="text"
 			cols="40"
 			rows="10"

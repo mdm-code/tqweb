@@ -37,10 +37,14 @@ func CheckTOML(c echo.Context) error {
 	value := c.FormValue("tomlData")
 	data := strings.NewReader(value)
 	err := tomlAdapter.Unmarshal(data, &tomlData)
-	errMsg := ""
+	var errMsg string
+	var ot template.OutlineType
 	if err != nil {
 		errMsg = err.Error()
+		ot = template.Error
+	} else {
+		ot = template.Correct
 	}
-	t := template.TomlInput(value, errMsg)
+	t := template.TomlInput(value, errMsg, ot)
 	return t.Render(c.Request().Context(), c.Response().Writer)
 }
