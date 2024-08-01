@@ -1,10 +1,12 @@
 package route
 
 import (
+	"bytes"
 	"strings"
 
 	"github.com/labstack/echo/v4"
 	"github.com/mdm-code/tq/toml"
+	"github.com/mdm-code/tq/tq"
 	"github.com/mdm-code/tqweb/server/template"
 )
 
@@ -34,9 +36,17 @@ func CheckTOML(c echo.Context) error {
 		),
 	)
 	var tomlData any
+
 	value := c.FormValue("tomlData")
 	data := strings.NewReader(value)
 	err := tomlAdapter.Unmarshal(data, &tomlData)
+
+	var output bytes.Buffer
+	input := strings.NewReader(value)
+	tqq := tq.New(tomlAdapter)
+	query := c.FormValue("tqQuery")
+	tqq.Run(input, &output, query)
+
 	var errMsg string
 	var ot template.OutlineType
 	if err != nil {
@@ -45,6 +55,6 @@ func CheckTOML(c echo.Context) error {
 	} else {
 		ot = template.Correct
 	}
-	t := template.TomlInput(value, errMsg, ot)
+	t := template.TomlInput(query, value, output.String(), errMsg, ot)
 	return t.Render(c.Request().Context(), c.Response().Writer)
 }

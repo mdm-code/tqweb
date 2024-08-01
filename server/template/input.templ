@@ -14,26 +14,43 @@ var Outline = map[OutlineType]string{
 	Default: "default",
 }
 
-templ TomlInput(value, err string, outline OutlineType) {
+templ TomlInput(query, value, output, err string, outline OutlineType) {
 	<div class="container center" id="toml-response-div">
-		<b>TOML data:</b>
-		<button
+		<form
 			hx-post="/toml"
-			hx-include="[name='tomlData']"
+			hx-include="[name='tomlData'], [name='tqQuery']"
 			hx-swap="outerHTML"
 			hx-target="#toml-response-div"
-		>Submit</button>
+		>
+		<br>
+		<label for="tqQuery">Query</label>
+		<br>
+		<textarea
+			cols="40"
+			rows="1"
+			name="tqQuery"
+			id="tqQuery"
+			required
+		>{ query }</textarea>
 		<br>
 		if err != "" {
 			<div class="error">{ err }</div>
+			<br>
 		}
+		<br>
+		<label for="tomlData">TOML data</label>
+		<br>
 		<textarea
 			class={ Outline[outline]  }
-			type="text"
 			cols="40"
 			rows="10"
 			name="tomlData"
 			id="tomlData"
+			required
 		>{ value }</textarea>
+		<br>
+		<input type="submit">
+		</form>
+		<div>{ output }</div>
 	</div>
 }
