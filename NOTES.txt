@@ -1,8 +1,25 @@
-Things to do:
-1. Setup index.html
-2. Setup header template
-3. Download htmx and put it in the static directory
-4. Include it in the header
-5. Render index.html with htmx using Go Templ and whatever router I find appropriate.
-6. Setup packages used in the project.
-...
+- What do I need to get the basic functionality up and running?
+- 1. Let's start with the basics, and provide the top bar with TQ title. [DONE though I need to add some css styles later on]
+ - ( At the later stage it would have a reference menu with Github links to my profile and TQ package. )
+- 2. Then for the baseline, I want to have a PATTERN input field with the field name above it.
+ - It should allow the user to key in the query pattern.
+ - ( At the later stage, it should have a copy button with an icon to copy the pattern and use it right in the script version of TQ. )
+ - I don't know if right from the start, but It should include dimmed quotation marks.
+ - ( And these quotation marks should be copied as well when using the copy button. Or maybe they shouldn't? ).
+  - ( I would have to figure out what the user is using in the pattern and he/she might be using a mix of both. )
+ - ( Once it's sent, single and double quotes are irrelevant for the interpreter as long as they're consitent. )
+- 3. I want to have flags like "tables inline" etc.
+ - These can be simple checkboxes for now.
+ - ( At the later stage I want to have flags rendered like in regex 101 where they come right after the pattern like "-tmsj" and when you click it you get a dropdown menu. )
+- 4. Right under, the pattern, there is a text field "TOML INPUT" that takes in the input to be queried.
+ - ( Syntax highlighting might come in handy, but it's best effort and should be done as one of the last things. )
+ - ( I don't know if there's a fancy js library to do it. )
+- 5. OUTPUT comes last, and it prints out what's been queried given the pattern, flags and the input.
+ - ( It has the copy button like the pattern for the user to copy out what's been queried. )
+- 6. I might want to add another space for ERRORS ( maybe above the output? )
+- THE FORM: i.e. what goes into the server endpoint.
+ - Both the PATTERN and the TOML INPUT are grouped into a single form so that they're submitted together in a single POST.
+- Bells and whistles: match indicators.
+ - Still need to think about it. A separate endpoint can validate the pattern ( I can use form attribute on the input to submit request on keypress with debounce. )
+ - Another one can validate JSON.
+ - The response should change/alter the css style of the match indicator.
