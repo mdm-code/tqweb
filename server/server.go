@@ -11,6 +11,5 @@ func Server() *echo.Echo {
 	e := echo.New()
 	e.Use(middleware.Logger())
 	route.UseRootRoutes(e)
-	route.UseInputRoutes(e)
 	return e
 }

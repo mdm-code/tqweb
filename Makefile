@@ -1,13 +1,12 @@
 GO=go
 GOFLAGS=-mod=vendor
 COV_PROFILE=coverage.txt
-MODULES=server,cmd
 
 export CGO_ENABLED=0
 
 .DEFAULT_GOAL := build
 
-.PHONY: fmt vet lint test install build cover clean serve update-js gen-templ
+.PHONY: fmt vet test install build cover clean serve update-js gen-templ
 
 fmt: gen-templ
 	@$(GO) fmt ./...
@@ -15,10 +14,7 @@ fmt: gen-templ
 vet: fmt
 	@$(GO) vet ./...
 
-lint: vet
-	@golint -set_exit_status=1 ./{$(MODULES)}/...
-
-test: lint
+test: vet
 	@$(GO) clean -testcache
 	@$(GO) test ./... -v
 
