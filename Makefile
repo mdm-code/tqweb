@@ -1,5 +1,5 @@
 GO=go
-GOFLAGS=-race -mod=vendor -trimpath
+GOFLAGS=-mod=vendor -trimpath
 COV_PROFILE=coverage.txt
 TEMPL=templ
 
