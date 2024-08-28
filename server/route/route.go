@@ -1,19 +1,23 @@
 package route
 
 import (
-	"net/http"
-
-	_ "github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
+	"github.com/mdm-code/tqweb/server/component"
+)
+
+const (
+	staticFsRoot = "assets"
 )
 
 // UseRootRoutes is a router grouping function.
 func UseRootRoutes(e *echo.Echo) {
-	e.Static("/", "static")
+	e.Static("/assets", staticFsRoot)
 	e.GET("/", Index)
 }
 
-// Index route for the application.
+// Index route for the tqweb.
 func Index(c echo.Context) error {
-	return c.String(http.StatusOK, "OK")
+	index := component.Index()
+	err := index.Render(c.Request().Context(), c.Response().Writer)
+	return err
 }
