@@ -1,14 +1,18 @@
 GO=go
-GOFLAGS=-mod=vendor
+GOFLAGS=-race -mod=vendor -trimpath
 COV_PROFILE=coverage.txt
+TEMPL=templ
 
 export CGO_ENABLED=0
 
 .DEFAULT_GOAL := build
 
-.PHONY: fmt vet test install build cover clean serve update-js gen-templ
+.PHONY: fmt vet test install build cover clean serve templ
 
-fmt: gen-templ
+templ:
+	@$(TEMPL) generate
+
+fmt: templ
 	@$(GO) fmt ./...
 
 vet: fmt
@@ -21,8 +25,8 @@ test: vet
 install: test
 	@$(GO) install ./...
 
-build: test update-js
-	@$(GO) build $(GOFLAGS) github.com/mdm-code/tqweb/...
+build: test
+	@$(GO) build -C ./cmd/tqweb $(GOFLAGS) -o ../../tqweb
 
 cover:
 	@$(GO) test -coverprofile=$(COV_PROFILE) -covermode=atomic ./...
@@ -34,12 +38,5 @@ clean:
 	@$(GO) clean -testcache
 	@rm -f $(COV_PROFILE)
 
-update-js:
-	@./tools/scripts/dl-htmx
-
-gen-templ:
-	@templ generate
-
-serve:
-	@$(GO) build -C ./cmd/tqweb -trimpath -o tqweb
-	@./cmd/tqweb/tqweb
+serve: build
+	@./tqweb
