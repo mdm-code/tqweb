@@ -46,7 +46,7 @@ func RegsiterRootRoutes(e *echo.Echo) *echo.Echo {
 func RegisterProcessRoutes(e *echo.Echo) *echo.Echo {
 	g := e.Group("/api/v1")
 	g.POST("/inputData", ProcessInputData)
-	g.POST("/tqQuery/validate", ValidateTqQuery)
+	g.POST("/query/validate", ValidateTqQuery)
 	g.POST("/toml/validate", ValidateTOML)
 	return e
 }
@@ -56,4 +56,70 @@ func Index(c echo.Context) error {
 	index := component.Index()
 	err := index.Render(c.Request().Context(), c.Response().Writer)
 	return err
+}
+
+// ProcessInputData runs the tq query against the provided TOML data.
+func ProcessInputData(c echo.Context) error {
+	query := c.FormValue("tqQuery")
+	tomlData := c.FormValue("tomlData")
+
+	input := strings.NewReader(tomlData)
+	var output bytes.Buffer
+
+	// TODO: Config data should be provided through the form as well.
+	tomlAdapter := toml.NewAdapter(toml.NewGoTOML(toml.GoTOMLConf{}))
+	tq := tq.New(tomlAdapter)
+	if err := tq.Run(input, &output, query); err != nil {
+		return &echo.HTTPError{
+			Code:     http.StatusUnprocessableEntity,
+			Message:  "Unprocessable entity",
+			Internal: err,
+		}
+	}
+	// TODO: Otherwise try to render the output HTML with output.String().
+
+	// TODO: Extend output TOML validation.
+	_ = func(output string) bool {
+		var data any
+		r := strings.NewReader(output)
+		if err := tomlAdapter.Unmarshal(r, &data); err != nil {
+			return false
+		}
+		return true
+	}(output.String())
+
+	return nil
+}
+
+// ValidateTqQuery verifies if the provided tq query string is valid.
+func ValidateTqQuery(c echo.Context) error {
+	query := c.FormValue("tqQuery")
+	tomlAdapter := toml.NewAdapter(toml.NewGoTOML(toml.GoTOMLConf{}))
+	tq := tq.New(tomlAdapter)
+	if err := tq.Validate(query); err != nil {
+		return &echo.HTTPError{
+			Code:     http.StatusUnprocessableEntity,
+			Message:  "Unprocessable entity",
+			Internal: err,
+		}
+	}
+	// TODO: Otherwise try to render the output HTML.
+	return nil
+}
+
+// ValidateTOML checks if the provided form input is a valid TOML document.
+func ValidateTOML(c echo.Context) error {
+	tomlData := c.FormValue("tomlData")
+	tomlAdapter := toml.NewAdapter(toml.NewGoTOML(toml.GoTOMLConf{}))
+	var data any
+	reader := strings.NewReader(tomlData)
+	if err := tomlAdapter.Unmarshal(reader, &data); err != nil {
+		return &echo.HTTPError{
+			Code:     http.StatusUnprocessableEntity,
+			Message:  "Unprocessable entity",
+			Internal: err,
+		}
+	}
+	// TODO: Otherwise try to render the output HTML.
+	return nil
 }
