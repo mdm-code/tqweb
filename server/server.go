@@ -10,6 +10,6 @@ import (
 func Server() *echo.Echo {
 	e := echo.New()
 	e.Use(middleware.Logger())
-	route.UseRootRoutes(e)
+	e = route.RegisterAll(e)
 	return e
 }
